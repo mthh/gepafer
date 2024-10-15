@@ -1,0 +1,13 @@
+[package]
+name = 'gepafer'
+version = '0.1.0'
+edition = '2021'
+
+[lib]
+crate-type = [ 'staticlib' ]
+name = 'gepafer'
+
+[dependencies]
+extendr-api = '*'
+polyline = '0.11'
+geo-types = "0.7.8"
