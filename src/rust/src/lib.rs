@@ -54,25 +54,6 @@ fn decode_coordinates(polyline: String, factor: u32) -> Robj {
     .into_robj()
 }
 
-/*
-/// Encode coordinates to polyline.
-/// This function assumes that their is no need to check the validity of the coordinates
-/// (and so it should only be used after being wrapped in a safe R function).
-/// @export
-#[extendr]
-fn encode_coordinates_raw(coords_lat: Doubles, coords_lon: Doubles, factor: u32) -> Robj {
-  let coords = coords_lon.iter().zip(coords_lat.iter())
-      .map(|(a, b)| (a.inner(), b.inner()))
-      .collect::<Vec<(f64, f64)>>();
-  let result = polyline::encode_coordinates(Into::<LineString<_>>::into(coords), factor);
-  if result.is_err() {
-    Robj::from(Error::from(format!("Failed to encode polyline: {}", result.unwrap_err())))
-  } else {
-    Robj::from(result.unwrap())
-  }
-}
-*/
-
 // Macro to generate exports.
 // This ensures exported functions are registered with R.
 // See corresponding C code in `entrypoint.c`.
@@ -80,5 +61,4 @@ extendr_module! {
     mod gepafer;
     fn encode_coordinates;
     fn decode_coordinates;
-    // fn encode_coordinates_w;
 }
