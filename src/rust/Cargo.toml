@@ -9,5 +9,3 @@ name = 'gepafer'
 
 [dependencies]
 extendr-api = '*'
-polyline = '0.11'
-geo-types = "0.7.8"

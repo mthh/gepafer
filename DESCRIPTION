@@ -1,10 +1,10 @@
 Package: gepafer
-Title: What the Package Does (One Line, Title Case)
+Title: Google Encoded Polyline Algorithm Format
 Version: 0.0.0.9000
 Authors@R: 
     person("Matthieu", "Viry", , "matthieu.viry@cnrs.fr", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-0693-8556"))
-Description: What the package does (one paragraph).
+Description: Encode and decode the Google Encoded Polyline Algorithm Format.
 License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
     license
 Encoding: UTF-8
