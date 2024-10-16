@@ -8,4 +8,4 @@ crate-type = [ 'staticlib' ]
 name = 'gepafer'
 
 [dependencies]
-extendr-api = '*'
+extendr-api = '0.7.1'
