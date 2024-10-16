@@ -7,11 +7,11 @@ m <- mf_get_mtq()
 m <- st_transform(m, "EPSG:4326")
 xx <- st_coordinates(m)
 df <- data.frame(lat = round(xx[1:1000,2], 5), lon = round(xx[1:1000,1], 5))
-poly <- encode_coordinates(df, 5)
+poly <- encode_polyline(df, 5)
 
 microbenchmark(
-  gepafeur_encode = encode_coordinates(df, 5),
-  gepafeur_decode = decode_coordinates(poly, 5),
+  gepafeur_encode = encode_polyline(df, 5),
+  gepafeur_decode = decode_polyline(poly, 5),
   times = 100,
   unit = 'microseconds'
 )

@@ -25,7 +25,7 @@ fn encode(delta: i64, output: &mut String) {
 /// Encode coordinates to polyline.
 /// @export
 #[extendr]
-fn encode_coordinates(coords: List, factor: u32) -> Robj {
+fn encode_polyline(coords: List, factor: u32) -> Robj {
   // We need to convert the DataFrame (that we handle directly as a List) to a Vec<(f64, f64)>
   // So, because DataFrame<T> don't offer Iterators for now
   // (see https://github.com/extendr/extendr/issues/714),
@@ -69,7 +69,7 @@ fn encode_coordinates(coords: List, factor: u32) -> Robj {
 /// Decode coordinates
 /// @export
 #[extendr]
-pub fn decode_coordinates(polyline: &str, factor: u32) -> Robj {
+pub fn decode_polyline(polyline: &str, factor: u32) -> Robj {
     let mut lat: i64 = 0;
     let mut lon: i64 = 0;
     let factor = 10i64.pow(factor);
@@ -140,6 +140,6 @@ pub fn decode_coordinates(polyline: &str, factor: u32) -> Robj {
 // See corresponding C code in `entrypoint.c`.
 extendr_module! {
     mod gepafer;
-    fn encode_coordinates;
-    fn decode_coordinates;
+    fn encode_polyline;
+    fn decode_polyline;
 }

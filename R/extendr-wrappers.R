@@ -12,11 +12,11 @@ NULL
 
 #' Encode coordinates to polyline.
 #' @export
-encode_coordinates <- function(coords, factor) .Call(wrap__encode_coordinates, coords, factor)
+encode_polyline <- function(coords, factor) .Call(wrap__encode_polyline, coords, factor)
 
 #' Decode coordinates
 #' @export
-decode_coordinates <- function(polyline, factor) .Call(wrap__decode_coordinates, polyline, factor)
+decode_polyline <- function(polyline, factor) .Call(wrap__decode_polyline, polyline, factor)
 
 
 # nolint end
