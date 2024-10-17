@@ -2,10 +2,27 @@
 % Please edit documentation in R/extendr-wrappers.R
 \name{encode_polyline}
 \alias{encode_polyline}
-\title{Encode coordinates to polyline.}
+\title{Encode Coordinates to Google Polylines}
 \usage{
-encode_polyline(coords, factor)
+encode_polyline(coords, factor = 5)
+}
+\arguments{
+\item{factor}{number of decimal digits to be used.}
+
+\item{df_coords}{a data frame of coordinates with two columns: 'lat' and
+'lon'. Coordinates must be in decimal degrees (WGS84).}
+}
+\value{
+An encoded polyline is returned.
 }
 \description{
-Encode coordinates to polyline.
+Encode a data frame of coordinates to a Google polyline.
+}
+\examples{
+coords <- data.frame(
+  lat = c(38.5, 40.7, 43.252),
+  lon = c(-120.2, -120.95, -126.453)
+)
+encpoly <- encode_polyline(coords)
+encpoly
 }

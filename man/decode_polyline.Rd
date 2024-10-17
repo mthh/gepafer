@@ -2,10 +2,22 @@
 % Please edit documentation in R/extendr-wrappers.R
 \name{decode_polyline}
 \alias{decode_polyline}
-\title{Decode coordinates}
+\title{Decode a Google Polyline to a Data Frame}
 \usage{
-decode_polyline(polyline, factor)
+decode_polyline(enc_polyline, factor = 5)
+}
+\arguments{
+\item{enc_polyline}{a Google polyline.}
+
+\item{factor}{number of decimal digits to be used.}
+}
+\value{
+A data frame of latitudes and longitudes is returned.
 }
 \description{
-Decode coordinates
+Decode a Google polyline to a data frame of coordinates.
+}
+\examples{
+coords <- decode_polyline(enc_polyline = "_p~iF~ps|U_ulLnnqC_mqNvxq`@")
+coords
 }

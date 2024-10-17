@@ -17,10 +17,23 @@ fn encode(delta: i64, output: &mut String) {
     output.push(from_char);
 }
 
-/// Encode coordinates to polyline.
+/// @name encode_polyline
+/// @title Encode Coordinates to Google Polylines
+/// @description Encode a data frame of coordinates to a Google polyline.
+/// @param df_coords a data frame of coordinates with two columns: 'lat' and
+/// 'lon'. Coordinates must be in decimal degrees (WGS84).
+/// @param factor number of decimal digits to be used.
+/// @return An encoded polyline is returned.
+/// @examples
+/// coords <- data.frame(
+///   lat = c(38.5, 40.7, 43.252),
+///   lon = c(-120.2, -120.95, -126.453)
+/// )
+/// encpoly <- encode_polyline(coords)
+/// encpoly
 /// @export
 #[extendr]
-fn encode_polyline(coords: List, factor: u32) -> Robj {
+fn encode_polyline(coords: List, #[default = "5"] factor: u32) -> Robj {
   // We need to convert the DataFrame (that we handle directly as a List) to a Vec<(f64, f64)>
   // So, because DataFrame<T> don't offer Iterators for now
   // (see https://github.com/extendr/extendr/issues/714),
@@ -71,10 +84,18 @@ fn encode_polyline(coords: List, factor: u32) -> Robj {
   Robj::from(result)
 }
 
-/// Decode coordinates
+/// @name decode_polyline
+/// @title Decode a Google Polyline to a Data Frame
+/// @description Decode a Google polyline to a data frame of coordinates.
+/// @param enc_polyline a Google polyline.
+/// @param factor number of decimal digits to be used.
+/// @return A data frame of latitudes and longitudes is returned.
+/// @examples
+/// coords <- decode_polyline(enc_polyline = "_p~iF~ps|U_ulLnnqC_mqNvxq`@")
+/// coords
 /// @export
 #[extendr]
-pub fn decode_polyline(polyline: &str, factor: u32) -> Robj {
+pub fn decode_polyline(enc_polyline: &str, #[default = "5"] factor: u32) -> Robj {
     let mut lat: i64 = 0;
     let mut lon: i64 = 0;
     let factor = 10i64.pow(factor);
@@ -82,7 +103,7 @@ pub fn decode_polyline(polyline: &str, factor: u32) -> Robj {
 
     let mut coordinates_lat = vec![];
     let mut coordinates_lon = vec![];
-    let bytes = polyline.as_bytes();
+    let bytes = enc_polyline.as_bytes();
     let len = bytes.len();
     let mut index = 0;
 

@@ -11,13 +11,34 @@
 #' @useDynLib gepafer, .registration = TRUE
 NULL
 
-#' Encode coordinates to polyline.
+#' @name encode_polyline
+#' @title Encode Coordinates to Google Polylines
+#' @description Encode a data frame of coordinates to a Google polyline.
+#' @param df_coords a data frame of coordinates with two columns: 'lat' and
+#' 'lon'. Coordinates must be in decimal degrees (WGS84).
+#' @param factor number of decimal digits to be used.
+#' @return An encoded polyline is returned.
+#' @examples
+#' coords <- data.frame(
+#'   lat = c(38.5, 40.7, 43.252),
+#'   lon = c(-120.2, -120.95, -126.453)
+#' )
+#' encpoly <- encode_polyline(coords)
+#' encpoly
 #' @export
-encode_polyline <- function(coords, factor) .Call(wrap__encode_polyline, coords, factor)
+encode_polyline <- function(coords, factor = 5) .Call(wrap__encode_polyline, coords, factor)
 
-#' Decode coordinates
+#' @name decode_polyline
+#' @title Decode a Google Polyline to a Data Frame
+#' @description Decode a Google polyline to a data frame of coordinates.
+#' @param enc_polyline a Google polyline.
+#' @param factor number of decimal digits to be used.
+#' @return A data frame of latitudes and longitudes is returned.
+#' @examples
+#' coords <- decode_polyline(enc_polyline = "_p~iF~ps|U_ulLnnqC_mqNvxq`@")
+#' coords
 #' @export
-decode_polyline <- function(polyline, factor) .Call(wrap__decode_polyline, polyline, factor)
+decode_polyline <- function(enc_polyline, factor = 5) .Call(wrap__decode_polyline, enc_polyline, factor)
 
 
 # nolint end
