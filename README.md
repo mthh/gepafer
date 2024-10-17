@@ -2,7 +2,7 @@
 
 > The name is still subject to discussion.
 
-Does the same thing as gepaf (which stands for *Google Encoded Polyline Algorithm Format*) but in a more efficient way, using Rust.
+Does the same thing as [`gepaf`](https://github.com/mthh/gepaf) (which stands for *Google Encoded Polyline Algorithm Format*) but in a more efficient way, using Rust.
 
 ## Motivation
 
@@ -10,13 +10,14 @@ Some packages, such as `osrm`, need to encode / decode coordinates in order to c
 
 There are already some R packages that provide this functionality:
 
-- The [`gepaf`](https://github.com/mthh/gepaf) package is a great package (disclaimer: I'm its co-author with @rcarto), but it is written in pure R and it is relatively slow.
+- The [`gepaf`](https://github.com/mthh/gepaf) package is a great package (disclaimer: I'm its co-author with [@rcarto](https://github.com/rcarto)), but it is written in pure R and it is relatively slow.
 - The [`googlePolylines`](https://github.com/SymbolixAU/googlePolylines) package is fast but, on 10/10/2024, the CRAN announced that the package will be archived on 24/10/2024 if nothing is done by its maintainer.
 
 This package aims to provide the same functionality as `gepaf` while being as fast as `googlePolylines`, using Rust.
 
 Moreover, it's a great opportunity to learn how to write R packages with Rust.
-To do so, `gepafer` is using the `extendr` Rust crate and the `rextendr` R package (but other alternatives such as `savvy` exist and could be considered in the future).
+To do so, `gepafer` is using the [`extendr`](https://github.com/extendr/extendr) Rust crate and the [`rextendr`](https://github.com/extendr/rextendr) R package
+(but other alternatives such as [`savvy`](https://github.com/yutannihilation/savvy) exist and could be considered in the future).
 
 ## Installation
 
@@ -26,6 +27,11 @@ You can install the development version of `gepafer` from GitHub with:
 # install.packages("remotes")
 remotes::install_github("mthh/gepafer")
 ```
+
+You will need the Rust toolchain to compile the Rust code.
+The Minimum Supported Rust Version (MSRV) is 1.61.0.
+
+The package is not yet on CRAN.
 
 ## Usage
 
