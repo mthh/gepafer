@@ -1,10 +1,5 @@
 use extendr_api::prelude::*;
 
-fn scale(n: f64, factor: i32) -> i64 {
-    let scaled = n * (f64::from(factor));
-    scaled.round() as i64
-}
-
 #[inline(always)]
 fn encode(delta: i64, output: &mut String) {
     let mut value = delta << 1;
@@ -37,23 +32,33 @@ fn encode_polyline(coords: List, factor: u32) -> Robj {
       return Robj::from(Error::from("DataFrame must have columns 'lon' and 'lat'"));
   }
 
-  // Build a Vec<(f64, f64)> of coords from the DataFrame
-  let coords = coords.get(&"lon").unwrap().as_real_vector().unwrap().iter()
-      .zip(coords.get(&"lat").unwrap().as_real_vector().unwrap().iter())
-      .map(|(a, b)| (*a, *b))
-      .collect::<Vec<(f64, f64)>>();
+  // Extract the coordinates from the input R object
+  let coords_lon = coords.get(&"lon").unwrap().as_real_vector();
+  let coords_lat = coords.get(&"lat").unwrap().as_real_vector();
+  if coords_lat.is_none() || coords_lon.is_none() {
+      return Robj::from(Error::from("Invalid coordinates"));
+  }
+  let coords_lat = coords_lat.unwrap();
+  let coords_lon = coords_lon.unwrap();
+
+  // Check if the coordinates have the same length
+  if coords_lat.len() != coords_lon.len() {
+      return Robj::from(Error::from("Latitude and longitude vectors must have the same length"));
+  }
 
   // Actually encode the coordinates
   let mut result = String::new();
   let factor = 10i32.pow(factor);
   let mut prev_lat = 0;
   let mut prev_lon = 0;
-  for (i, (lon, lat)) in coords.into_iter().enumerate() {
+  for (i, (lon, lat)) in coords_lon.into_iter().zip(coords_lat.into_iter()).enumerate() {
+    // Note that checking bounds here add some (minor) overhead, so it could be removed in the future
+    // if performance is really critical.
     if (lat < -90.0 || lat > 90.0) || (lon < -180.0 || lon > 180.0) || lat.is_nan() || lon.is_nan() {
       return Robj::from(Error::from(format!("Invalid coordinates at index {}", i + 1)));
     }
-    let lat = scale(lat, factor);
-    let lon = scale(lon, factor);
+    let lat = (lat * factor as f64).round() as i64;
+    let lon = (lon * factor as f64).round() as i64;
     let delta_lat = lat - prev_lat;
     let delta_lon = lon - prev_lon;
     encode(delta_lat, &mut result);
@@ -113,9 +118,14 @@ pub fn decode_polyline(polyline: &str, factor: u32) -> Robj {
         lon += dlng;
 
         // Convert and store the result in f64, then check bounds
-        let lat_f64 = lat as f64 * inv_factor;
-        let lon_f64 = lon as f64 * inv_factor;
+        let lat_f64 = (lat as f64).round() * inv_factor;
+        let lon_f64 = (lon as f64).round() * inv_factor;
 
+        // Note that checking bounds here is not strictly necessary, as the polyline
+        // encoding itself should prevent invalid coordinates.
+        // However, we are checking it in case a corrupted polyline is passed to the function.
+        // This also add some (minor) overhead, so it could be removed in the future
+        // if performance is critical.
         if lat_f64 < -90.0 || lat_f64 > 90.0 || lon_f64 < -180.0 || lon_f64 > 180.0 {
             return Robj::from(Error::from("Invalid coordinates"));
         }
@@ -126,7 +136,7 @@ pub fn decode_polyline(polyline: &str, factor: u32) -> Robj {
 
     // Create a List with the decoded coordinates
     let length = coordinates_lat.len();
-    let mut l = list!(lon = coordinates_lon, lat = coordinates_lat);
+    let mut l = list!(lat = coordinates_lat, lon = coordinates_lon);
     // Set the class to "data.frame" (this is way cheaper than creating a Dataframe,
     // both in R with as.data.frame() and in Rust with Dataframe<T>)
     l.set_class(&["data.frame"]).unwrap();
