@@ -6,6 +6,7 @@
 # This file was created with the following call:
 #   .Call("wrap__make_gepafer_wrappers", use_symbols = TRUE, package_name = "gepafer")
 
+#' @docType package
 #' @usage NULL
 #' @useDynLib gepafer, .registration = TRUE
 NULL
