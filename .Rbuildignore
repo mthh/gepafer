@@ -2,3 +2,4 @@
 ^\.Rproj\.user$
 ^src/\.cargo$
 ^src/rust/vendor$
+^LICENSE\.md$
