@@ -4,10 +4,10 @@
 \alias{encode_polyline}
 \title{Encode Coordinates to Google Polylines}
 \usage{
-encode_polyline(coords, factor = 5)
+encode_polyline(df_coords, factor = 5)
 }
 \arguments{
-\item{coords}{a data frame of coordinates with two columns: 'lat' and
+\item{df_coords}{a data frame of coordinates with two columns: 'lat' and
 'lon'. Coordinates must be in decimal degrees (WGS84).}
 
 \item{factor}{number of decimal digits to be used.}

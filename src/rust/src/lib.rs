@@ -33,12 +33,12 @@ fn encode(delta: i64, output: &mut String) {
 /// encpoly
 /// @export
 #[extendr]
-fn encode_polyline(coords: List, #[default = "5"] factor: u32) -> Robj {
+fn encode_polyline(df_coords: List, #[default = "5"] factor: u32) -> Robj {
   // We need to convert the DataFrame (that we handle directly as a List) to a Vec<(f64, f64)>
   // So, because DataFrame<T> don't offer Iterators for now
   // (see https://github.com/extendr/extendr/issues/714),
   // we need to handle it as a List, then we can convert it to a Rust HashMap...
-  let coords = coords.into_hashmap();
+  let coords = df_coords.into_hashmap();
 
   // We need to check if the List has the names "lon" and "lat"
   if !coords.contains_key(&"lon") || !coords.contains_key(&"lat") {

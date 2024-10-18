@@ -14,7 +14,7 @@
 #' @name encode_polyline
 #' @title Encode Coordinates to Google Polylines
 #' @description Encode a data frame of coordinates to a Google polyline.
-#' @param coords a data frame of coordinates with two columns: 'lat' and
+#' @param df_coords a data frame of coordinates with two columns: 'lat' and
 #' 'lon'. Coordinates must be in decimal degrees (WGS84).
 #' @param factor number of decimal digits to be used.
 #' @return An encoded polyline is returned.
@@ -26,7 +26,7 @@
 #' encpoly <- encode_polyline(coords)
 #' encpoly
 #' @export
-encode_polyline <- function(coords, factor = 5) .Call(wrap__encode_polyline, coords, factor)
+encode_polyline <- function(df_coords, factor = 5) .Call(wrap__encode_polyline, df_coords, factor)
 
 #' @name decode_polyline
 #' @title Decode a Google Polyline to a Data Frame
