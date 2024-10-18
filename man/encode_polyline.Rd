@@ -7,10 +7,10 @@
 encode_polyline(coords, factor = 5)
 }
 \arguments{
-\item{factor}{number of decimal digits to be used.}
-
-\item{df_coords}{a data frame of coordinates with two columns: 'lat' and
+\item{coords}{a data frame of coordinates with two columns: 'lat' and
 'lon'. Coordinates must be in decimal degrees (WGS84).}
+
+\item{factor}{number of decimal digits to be used.}
 }
 \value{
 An encoded polyline is returned.

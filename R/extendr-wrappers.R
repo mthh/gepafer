@@ -9,12 +9,12 @@
 #' @docType package
 #' @usage NULL
 #' @useDynLib gepafer, .registration = TRUE
-NULL
+"_PACKAGE"
 
 #' @name encode_polyline
 #' @title Encode Coordinates to Google Polylines
 #' @description Encode a data frame of coordinates to a Google polyline.
-#' @param df_coords a data frame of coordinates with two columns: 'lat' and
+#' @param coords a data frame of coordinates with two columns: 'lat' and
 #' 'lon'. Coordinates must be in decimal degrees (WGS84).
 #' @param factor number of decimal digits to be used.
 #' @return An encoded polyline is returned.

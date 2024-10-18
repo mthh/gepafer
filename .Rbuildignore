@@ -3,3 +3,4 @@
 ^src/\.cargo$
 ^src/rust/vendor$
 ^LICENSE\.md$
+^microbench\.R$
