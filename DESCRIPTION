@@ -2,8 +2,16 @@ Package: gepafer
 Title: Google Encoded Polyline Algorithm Format
 Version: 0.0.0.9000
 Authors@R: 
-    person("Matthieu", "Viry", , "matthieu.viry@cnrs.fr", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0002-0693-8556"))
+    c(person(given = "Matthieu",
+             family = "Viry",
+             email = "matthieu.viry@cnrs.fr",
+             role = c("aut","cre"),
+             comment = c(ORCID = "0000-0002-0693-8556")),
+      person(given = "Timothée",
+             family = "Giraud",
+             email = "timothee.giraud@cnrs.fr",
+             role = "ctb",
+             comment = c(ORCID = "0000-0002-1932-3323")))
 Description: Encode and decode the Google Encoded Polyline Algorithm Format.
 License: GPL (>= 3)
 Suggests: tinytest
