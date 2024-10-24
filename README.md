@@ -1,17 +1,17 @@
 # Gepafer
 
-> The name is still subject to discussion.
-
 Does the same thing as [`gepaf`](https://github.com/mthh/gepaf) (which stands for *Google Encoded Polyline Algorithm Format*) but in a more efficient way, using Rust.
+
+> The name is still subject to discussion but "gepafer" can be understood as "gepaf, faster".
 
 ## Motivation
 
-Some packages, such as `osrm`, need to encode / decode coordinates in order to communicate with the OSRM API.
+Some packages, such as [`osrm`](https://github.com/riatelab/osrm), need to encode / decode coordinates in order to communicate with the OSRM API.
 
 There are already some R packages that provide this functionality:
 
 - The [`gepaf`](https://github.com/mthh/gepaf) package is a great package (disclaimer: I'm its co-author with [@rcarto](https://github.com/rcarto)), but it is written in pure R and it is relatively slow.
-- The [`googlePolylines`](https://github.com/SymbolixAU/googlePolylines) package is fast but, on 10/10/2024, the CRAN announced that the package will be archived on 24/10/2024 if nothing is done by its maintainer.
+- The [`googlePolylines`](https://github.com/SymbolixAU/googlePolylines) package is fast (it uses C++ under the hood) ~~but, on 10/10/2024, the CRAN announced that the package will be archived on 24/10/2024 if nothing is done by its maintainer~~.
 
 This package aims to provide the same functionality as `gepaf` while being as fast as `googlePolylines`, using Rust.
 
